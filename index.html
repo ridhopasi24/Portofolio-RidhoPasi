@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ridho Robbi Pasi – Portfolio</title>
+  <meta name="description" content="Portfolio modern Ridho Robbi Pasi — Muslim, Mahasiswa TI USU, Technopreneur, dan Calon Politisi Muda." />
+  <meta name="theme-color" content="#0b2a6f" />
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              600: '#1d4ed8', // biru tua
+              700: '#1e3a8a',
+            },
+            gold: '#f59e0b',
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(2,6,23,.08)'
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Chart.js (untuk radar, bar, line) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Scroll reveal sederhana */
+    .reveal {opacity: 0; transform: translateY(16px); transition: all .7s ease;}
+    .reveal.visible {opacity: 1; transform: translateY(0)}
+    /* Parallax hero bg */
+    .parallax::before{content:'';position:absolute;inset:0;background:radial-gradient(50% 50% at 50% 0%, rgba(29,78,216,.18), transparent 60%);transform:translateZ(0)}
+  </style>
+</head>
+<body class="bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 text-slate-800 dark:text-slate-200">
+  <script>
+    // THEME: persist dark / light
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+    function toggleTheme(){
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      lucide.createIcons();
+    }
+  </script>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 border-b border-slate-200/60 dark:border-white/10 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <a href="#home" class="flex items-center gap-3">
+        <div class="h-8 w-8 rounded-xl bg-gradient-to-tr from-primary-600 to-gold"></div>
+        <span class="font-bold text-slate-900 dark:text-slate-50">Ridho RP</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#about" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Tentang</a>
+        <a href="#skills" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Skill</a>
+        <a href="#portfolio" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Portofolio</a>
+        <a href="#roadmap" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Roadmap</a>
+        <a href="#blog" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Blog</a>
+        <a href="#gallery" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Galeri</a>
+        <a href="#contact" class="text-sm px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5">Kontak</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="/Ridho_Robbi_Pasi_CV.pdf" class="hidden md:inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 px-3 py-2 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800/80">
+          <i data-lucide="download" class="w-4 h-4"></i> Download CV
+        </a>
+        <button onclick="toggleTheme()" aria-label="Toggle theme" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 px-3 py-2 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800/80">
+          <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:inline"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="relative isolate overflow-hidden parallax">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-20 md:grid-cols-2 md:py-28">
+      <div class="order-2 md:order-1 reveal">
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-slate-900 dark:text-white">Ridho Robbi Pasi</h1>
+        <p class="mt-2 text-slate-600 dark:text-slate-300">Muslim, Mahasiswa, Technopreneur, dan Calon Politisi Muda</p>
+        <div class="mt-6 text-lg font-semibold text-slate-900 dark:text-slate-50">
+          <span class="opacity-70">Saya adalah </span>
+          <span id="typed" class="bg-gradient-to-r from-primary-600 to-gold bg-clip-text text-transparent"></span>
+          <span id="caret" class="ml-1 inline-block w-1 bg-slate-900 dark:bg-white">&nbsp;</span>
+        </div>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-gold px-4 py-2 font-semibold text-white shadow hover:opacity-95">Ayo Kolaborasi <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          <a href="/Ridho_Robbi_Pasi_CV.pdf" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white px-4 py-2 font-medium hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-800/80"><i data-lucide="download" class="w-4 h-4"></i> CV PDF</a>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-2 text-sm">
+          <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium text-slate-700 dark:text-slate-200 backdrop-blur"><i data-lucide="map-pin" class="w-3 h-3"></i> Sitinjo, Dairi, Sumatera Utara</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium text-slate-700 dark:text-slate-200 backdrop-blur"><i data-lucide="graduation-cap" class="w-3 h-3"></i> Mahasiswa D3 TI – USU</span>
+        </div>
+      </div>
+      <div class="order-1 md:order-2 reveal">
+        <div class="relative mx-auto h-64 w-64 md:h-80 md:w-80">
+          <div class="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-primary-600 to-gold blur-2xl opacity-30"></div>
+          <img alt="Ridho" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1200&auto=format&fit=crop" class="relative h-full w-full rounded-[2rem] object-cover shadow-2xl" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Tentang Saya</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Profil Singkat & Timeline</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="md:col-span-2 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h3 class="mb-3 text-xl font-bold">Halo, saya Ridho 👋</h3>
+          <p class="leading-relaxed text-slate-600 dark:text-slate-300">
+            Seorang pemuda visioner, lulusan Pesantren Arraudlatul Hasanah Medan. Punya passion di teknologi, bisnis, dan dunia digital-konten. Visi: menjadi muslim yang berguna dan dermawan serta membangun perusahaan teknologi internasional. Misi: berkontribusi lewat bisnis dan politik, memajukan daerah, dan berdakwah melalui digital.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2 text-sm">
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium"><i data-lucide="badge-check" class="w-3 h-3"></i> Technopreneur Muda</span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium"><i data-lucide="badge-check" class="w-3 h-3"></i> Digital Creator</span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium"><i data-lucide="badge-check" class="w-3 h-3"></i> Mahasiswa TI (USU)</span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium"><i data-lucide="badge-check" class="w-3 h-3"></i> Calon Politisi</span>
+          </div>
+          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 text-sm">
+            <div class="space-y-1">
+              <div><span class="font-semibold">Nama:</span> Ridho Robbi Pasi</div>
+              <div><span class="font-semibold">Panggilan:</span> Ridho</div>
+              <div><span class="font-semibold">TTL:</span> Sitinjo, Dairi, 24 April 2006</div>
+              <div><span class="font-semibold">Usia:</span> 19 tahun (2025)</div>
+            </div>
+            <div class="space-y-1">
+              <div><span class="font-semibold">Status:</span> Mahasiswa baru D3 Teknik Informatika, Fakultas Vokasi, USU</div>
+              <div><span class="font-semibold">Domisili:</span> Sitinjo, Dairi, Sumatera Utara</div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">Role Model</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" class="h-4 w-4 text-gold" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.848 1.417 8.263L12 19.771l-7.417 4.088L6 15.596 0 9.748l8.332-1.73z"/></svg> Nabi Muhammad SAW</li>
+            <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" class="h-4 w-4 text-gold" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.848 1.417 8.263L12 19.771l-7.417 4.088L6 15.596 0 9.748l8.332-1.73z"/></svg> Abdurrahman bin Auf</li>
+            <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" class="h-4 w-4 text-gold" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.848 1.417 8.263L12 19.771l-7.417 4.088L6 15.596 0 9.748l8.332-1.73z"/></svg> Jono Pasi</li>
+            <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" class="h-4 w-4 text-gold" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.848 1.417 8.263L12 19.771l-7.417 4.088L6 15.596 0 9.748l8.332-1.73z"/></svg> Anies Baswedan</li>
+            <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" class="h-4 w-4 text-gold" fill="currentColor"><path d="M12 .587l3.668 7.431L24 9.748l-6 5.848 1.417 8.263L12 19.771l-7.417 4.088L6 15.596 0 9.748l8.332-1.73z"/></svg> Mark Zuckerberg</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">Timeline Hidup</h4>
+          <ol class="relative ml-3 border-l border-slate-200 dark:border-white/10">
+            <li class="mb-6 ml-4"><div class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-600"></div><div class="font-semibold">2006</div><div class="text-slate-600 dark:text-slate-300">Lahir di Sitinjo, Dairi</div></li>
+            <li class="mb-6 ml-4"><div class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-600"></div><div class="font-semibold">2025</div><div class="text-slate-600 dark:text-slate-300">Lulus Pesantren & mulai D3 TI USU</div></li>
+            <li class="mb-6 ml-4"><div class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-600"></div><div class="font-semibold">2028</div><div class="text-slate-600 dark:text-slate-300">Scale bisnis & studi lanjut</div></li>
+            <li class="mb-6 ml-4"><div class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-600"></div><div class="font-semibold">2035</div><div class="text-slate-600 dark:text-slate-300">Ekspansi bisnis internasional & politik nasional</div></li>
+          </ol>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">Visi & Misi</h4>
+          <ul class="grid gap-3 text-sm">
+            <li class="flex items-center gap-2"><i data-lucide="target" class="w-4 h-4"></i> Visi: Muslim yang berguna, dermawan, membangun perusahaan teknologi internasional.</li>
+            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Misi: Berkontribusi lewat bisnis & politik, memajukan daerah, dakwah digital.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Skill & Kompetensi</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Hard, Soft, dan Bahasa</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Hard Skill (Radar)</h4>
+          <canvas id="radarSkills" height="260"></canvas>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Bahasa (Bar)</h4>
+          <canvas id="barLanguages" height="260"></canvas>
+        </div>
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Detail Hard Skill</h4>
+          <div id="hardSkillList" class="grid gap-3"></div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Soft Skill</h4>
+          <div id="softSkillList" class="grid gap-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Portofolio</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Project Coding, Desain, & Konten</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-2 font-semibold">Project Coding</h4>
+          <ul id="codingList" class="space-y-3 text-sm"></ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-2 font-semibold">Desain</h4>
+          <ul id="designList" class="space-y-3 text-sm"></ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-2 font-semibold">Konten Digital</h4>
+          <ul id="contentList" class="space-y-3 text-sm"></ul>
+        </div>
+      </div>
+      <div class="mt-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+        <h4 class="mb-2 font-semibold">Aktivitas & Karya Pra-Kuliah</h4>
+        <ul id="activityList" class="grid gap-3 md:grid-cols-2"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Cita-cita & Roadmap</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Langkah Strategis ke Depan</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Roadmap Karier</h4>
+          <canvas id="lineRoadmap" height="260"></canvas>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Detail Tahapan</h4>
+          <ol id="roadmapDetail" class="relative ml-3 border-l border-slate-200 dark:border-white/10"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Blog / Insight</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Tulisan Terbaru</h2>
+      </div>
+      <div id="blogList" class="grid gap-6 md:grid-cols-3"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Galeri</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Foto Kegiatan, Desain, & Konten</h2>
+      </div>
+      <div id="galleryGrid" class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimoni" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Testimoni</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Kata Mereka</h2>
+      </div>
+      <div id="testiGrid" class="grid gap-6 md:grid-cols-3"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="mb-10">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-widest text-primary-600">Kontak</div>
+        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 dark:text-slate-50">Mari Kolaborasi</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Hubungi Ridho</h4>
+          <form onsubmit="event.preventDefault(); alert('Terima kasih! Pesanmu sudah dikirim (dummy). Ganti action ke Formspree/backend kamu.');" class="grid gap-4">
+            <input required placeholder="Nama" class="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 px-4 py-2" />
+            <input required type="email" placeholder="Email" class="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 px-4 py-2" />
+            <textarea required rows="4" placeholder="Pesan" class="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 px-4 py-2"></textarea>
+            <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-gold px-4 py-2 font-semibold text-white shadow hover:opacity-95">Kirim <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          </form>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <h4 class="mb-4 font-semibold">Sosial Media & Link</h4>
+          <ul class="grid gap-3 text-sm">
+            <li class="flex items-center gap-2"><i data-lucide="instagram" class="h-4 w-4"></i> <a class="hover:underline" href="https://instagram.com/ridhopasii">@ridhopasii</a></li>
+            <li class="flex items-center gap-2"><i data-lucide="instagram" class="h-4 w-4"></i> <a class="hover:underline" href="https://instagram.com/edunara.academy">@edunara.academy</a></li>
+            <li class="flex items-center gap-2"><i data-lucide="globe" class="h-4 w-4"></i> <a class="hover:underline" href="https://www.threads.net/@ridhopasii">Threads @ridhopasii</a></li>
+            <li class="flex items-center gap-2"><i data-lucide="facebook" class="h-4 w-4"></i> <a class="hover:underline" href="https://facebook.com/ridhorobbipasi">Facebook</a></li>
+            <li class="flex items-center gap-2"><i data-lucide="youtube" class="h-4 w-4"></i> <a class="hover:underline" href="https://www.youtube.com/@RidhoRobbiPasi">YouTube</a></li>
+            <li class="flex items-center gap-2"><i data-lucide="mail" class="h-4 w-4"></i> <a class="hover:underline" href="mailto:ridhopasi@gmail.com">ridhopasi@gmail.com</a></li>
+          </ul>
+          <div class="mt-6 text-xs opacity-70">*Butuh versi cepat? DM Instagram aja. Janji nggak ghosting 😄</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200/80 dark:border-white/10 py-10">
+    <div class="mx-auto max-w-6xl px-4 text-sm text-slate-600 dark:text-slate-400 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>© <span id="year"></span> Ridho Robbi Pasi. All rights reserved. Built with HTML+Tailwind.</div>
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium"><i data-lucide="trophy" class="w-3 h-3"></i> Mafaza Group — Coming Soon</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/5 px-3 py-1 font-medium"><i data-lucide="target" class="w-3 h-3"></i> Road to DPR RI</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // DATA (bisa kamu edit langsung)
+    const DATA = {
+      profile: {
+        name: 'Ridho Robbi Pasi',
+        nickname: 'Ridho',
+        birth: 'Sitinjo, Dairi, 24 April 2006',
+        age: '19 tahun (2025)',
+        status: 'Mahasiswa baru D3 Teknik Informatika, Fakultas Vokasi, Universitas Sumatera Utara (USU)',
+        location: 'Sitinjo, Dairi, Sumatera Utara'
+      },
+      skills: {
+        hard: [
+          { name: 'Laravel', level: 75 },
+          { name: 'HTML', level: 90 },
+          { name: 'CSS', level: 82 },
+          { name: 'Figma', level: 85 },
+          { name: 'Canva', level: 88 },
+          { name: 'Photoshop', level: 70 },
+          { name: 'Video Editing', level: 78 },
+        ],
+        soft: [
+          { name: 'Leadership', level: 86 },
+          { name: 'Public Speaking', level: 80 },
+          { name: 'Growth Mindset', level: 92 },
+        ],
+        languages: [
+          { name: 'Indonesia', level: 100 },
+          { name: 'Inggris', level: 65 },
+          { name: 'Arab', level: 40 },
+        ]
+      },
+      portfolio: {
+        coding: [
+          { title: 'Landing Page Travel Toba', desc: 'Website sederhana fokus UX pesanan wisata Danau Toba.', link: '#' },
+          { title: 'Personal Starter', desc: 'Starter portfolio statis dengan performa kilat.', link: '#' },
+        ],
+        design: [
+          { title: 'UI Dashboard Figma', desc: 'Dashboard admin modern – sistem kursus.', link: '#' },
+          { title: 'Poster Dakwah', desc: 'Poster Canva bertema motivasi & akhlak.', link: '#' },
+        ],
+        content: [
+          { title: '@ridhopasii', desc: 'Produktivitas, Islami, gaya hidup muslim muda.', link: 'https://instagram.com/ridhopasii' },
+          { title: '@edunara.academy', desc: 'Edukasi & pengembangan diri.', link: 'https://instagram.com/edunara.academy' },
+          { title: 'YouTube & Facebook', desc: 'Motivasi dan insight.', link: 'https://www.youtube.com/@RidhoRobbiPasi' },
+        ],
+        activities: [
+          { title: 'Pra-kuliah: Program 13 Minggu', desc: 'Logika Matematika, Dasar Python, Pengantar TI.' },
+          { title: 'DQLab Project', desc: 'Eksplorasi data dan mini project Python/SQL.' },
+        ]
+      },
+      roadmap: [
+        { year: 2025, phase: 'Kuliah & Branding', bullets: ['Bangun personal brand', 'Konsisten konten (IG/Threads/YouTube)', 'Organisasi & jejaring USU'], progress: 30 },
+        { year: 2028, phase: 'Scale Bisnis & Studi Lanjut', bullets: ['Mafaza Group tahap growth', 'Riset market Asia Tenggara', 'S2/sertifikasi TI'], progress: 60 },
+        { year: 2035, phase: 'Bisnis Internasional & Politik Nasional', bullets: ['Ekspansi global', 'Isu publik & kebijakan digital', 'Road to DPR RI'], progress: 10 },
+      ],
+      blog: [
+        { title: '3 Sistem Produktivitas buat Mahasiswa Baru', tag: 'Produktivitas', date: 'Aug 2025', excerpt: 'Time-blocking, habit tracking, dan weekly review biar kuliah & konten tetap on-track.', link: '#' },
+        { title: 'Dakwah Digital: Soft Skill Paling Panas Tahun Ini', tag: 'Dakwah Digital', date: 'Aug 2025', excerpt: 'Cara jadi bermanfaat tanpa noise: fokus value, adab komentar, dan data.', link: '#' },
+        { title: 'Toolset Techno-creators 2025', tag: 'Teknologi', date: 'Aug 2025', excerpt: 'Stack ringan buat kreator Gen Z: Figma, CapCut, Notion, dan Vite.', link: '#' },
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',
+      ]
+    };
+
+    // Typing effect
+    const typingTexts = ['Muslim yang bermanfaat','Mahasiswa TI USU','Technopreneur muda','Calon politisi masa depan'];
+    let tIndex=0, sub=0, del=false;
+    function typeLoop(){
+      const target = document.getElementById('typed');
+      const caret = document.getElementById('caret');
+      const full = typingTexts[tIndex % typingTexts.length];
+      target.textContent = full.substring(0, sub);
+      caret.style.opacity = caret.style.opacity === '0' ? '1' : '0';
+      if(!del && sub===full.length){ del=true; setTimeout(typeLoop, 900); return; }
+      if(del && sub===0){ del=false; tIndex++; }
+      sub += del ? -1 : 1;
+      setTimeout(typeLoop, del? 50 : 75);
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    },{threshold:.18});
+
+    // Render helpers
+    function renderLists(){
+      const hardList = document.getElementById('hardSkillList');
+      hardList.innerHTML = DATA.skills.hard.map(s=>`
+        <div>
+          <div class="mb-1 flex items-center justify-between text-sm"><span>${s.name}</span><span class="opacity-70">${s.level}%</span></div>
+          <div class="h-2 w-full rounded-full bg-slate-200 dark:bg-white/10">
+            <div class="h-2 rounded-full bg-gradient-to-r from-primary-600 to-gold" style="width:${s.level}%"></div>
+          </div>
+        </div>`).join('');
+
+      const softList = document.getElementById('softSkillList');
+      softList.innerHTML = DATA.skills.soft.map(s=>`
+        <div>
+          <div class="mb-1 flex items-center justify-between text-sm"><span>${s.name}</span><span class="opacity-70">${s.level}%</span></div>
+          <div class="h-2 w-full rounded-full bg-slate-200 dark:bg-white/10">
+            <div class="h-2 rounded-full bg-gradient-to-r from-primary-600 to-gold" style="width:${s.level}%"></div>
+          </div>
+        </div>`).join('');
+
+      const coding = document.getElementById('codingList');
+      coding.innerHTML = DATA.portfolio.coding.map(p=>`
+        <li class="rounded-xl border border-slate-200 dark:border-white/10 p-3">
+          <div class="font-semibold">${p.title}</div>
+          <div class="text-slate-600 dark:text-slate-300">${p.desc}</div>
+          <a href="${p.link}" class="mt-2 inline-flex items-center gap-1 text-primary-600">Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+        </li>`).join('');
+
+      const design = document.getElementById('designList');
+      design.innerHTML = DATA.portfolio.design.map(p=>`
+        <li class="rounded-xl border border-slate-200 dark:border-white/10 p-3">
+          <div class="font-semibold">${p.title}</div>
+          <div class="text-slate-600 dark:text-slate-300">${p.desc}</div>
+          <a href="${p.link}" class="mt-2 inline-flex items-center gap-1 text-primary-600">Lihat <i data-lucide="external-link" class="w-3 h-3"></i></a>
+        </li>`).join('');
+
+      const content = document.getElementById('contentList');
+      content.innerHTML = DATA.portfolio.content.map(p=>`
+        <li class="rounded-xl border border-slate-200 dark:border-white/10 p-3">
+          <div class="font-semibold">${p.title}</div>
+          <div class="text-slate-600 dark:text-slate-300">${p.desc}</div>
+          <a href="${p.link}" class="mt-2 inline-flex items-center gap-1 text-primary-600">Kunjungi <i data-lucide="external-link" class="w-3 h-3"></i></a>
+        </li>`).join('');
+
+      const act = document.getElementById('activityList');
+      act.innerHTML = DATA.portfolio.activities.map(a=>`
+        <li class="rounded-xl border border-slate-200 dark:border-white/10 p-3"><div class="font-semibold">${a.title}</div><div class="text-slate-600 dark:text-slate-300">${a.desc}</div></li>`).join('');
+
+      const rdetail = document.getElementById('roadmapDetail');
+      rdetail.innerHTML = DATA.roadmap.map(r=>`
+        <li class="mb-6 ml-4">
+          <div class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-gold"></div>
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="font-semibold">${r.year} — ${r.phase}</div>
+              <ul class="mt-1 list-disc pl-5 text-sm text-slate-600 dark:text-slate-300">${r.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+            </div>
+            <span class="rounded-lg bg-gold/10 px-2 py-1 text-xs font-semibold text-amber-700 dark:text-yellow-400">${r.progress}%</span>
+          </div>
+        </li>`).join('');
+
+      const blog = document.getElementById('blogList');
+      blog.innerHTML = DATA.blog.map(p=>`
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6">
+          <div class="mb-2 flex items-center justify-between text-xs"><span class="rounded-full bg-primary-600/10 px-2 py-1 font-semibold text-primary-600">${p.tag}</span><span class="opacity-70">${p.date}</span></div>
+          <h4 class="text-lg font-bold">${p.title}</h4>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">${p.excerpt}</p>
+          <a href="${p.link}" class="mt-4 inline-flex items-center gap-1 text-primary-600">Baca selengkapnya <i data-lucide="external-link" class="w-3 h-3"></i></a>
+        </div>`).join('');
+
+      const gal = document.getElementById('galleryGrid');
+      gal.innerHTML = DATA.gallery.map((src,i)=>`<img src="${src}" alt="gallery-${'${i}'}" class="aspect-video w-full rounded-2xl object-cover shadow reveal"/>`).join('');
+
+      const testi = document.getElementById('testiGrid');
+      const TESTIMONIALS = [
+        { name: 'Jono Pasi', role: 'Ayah', text: 'Ridho itu konsisten, mau belajar, dan selalu ingat amanah.' },
+        { name: 'Ustadz Pesantren', role: 'Guru', text: 'Adabnya baik, semangat dakwah digitalnya kuat.' },
+        { name: 'Sahabat Kuliah', role: 'Teman', text: 'Anaknya gerak cepat, idenya out of the box, tapi tetap membumi.' },
+      ];
+      testi.innerHTML = TESTIMONIALS.map(t=>`
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 shadow-soft p-6 reveal">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-primary-600 to-gold"></div>
+            <div><div class="font-semibold">${t.name}</div><div class="text-xs opacity-70">${t.role}</div></div>
+          </div>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">“${t.text}”</p>
+        </div>`).join('');
+
+      lucide.createIcons();
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    }
+
+    function renderCharts(){
+      // Radar for hard skills
+      const rlabels = DATA.skills.hard.map(s=>s.name);
+      const rdata = DATA.skills.hard.map(s=>s.level);
+      new Chart(document.getElementById('radarSkills'), {
+        type: 'radar',
+        data: { labels: rlabels, datasets: [{ label: 'Hard Skill', data: rdata }] },
+        options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, plugins:{ legend:{display:false} } }
+      });
+
+      // Bar for languages
+      new Chart(document.getElementById('barLanguages'), {
+        type: 'bar', data: { labels: DATA.skills.languages.map(l=>l.name), datasets: [{ label: 'Level', data: DATA.skills.languages.map(l=>l.level) }] },
+        options: { scales: { y: { suggestedMin: 0, suggestedMax: 100 } }, plugins:{ legend:{display:false} } }
+      });
+
+      // Line for roadmap progress
+      new Chart(document.getElementById('lineRoadmap'), {
+        type: 'line', data: { labels: DATA.roadmap.map(r=>r.year), datasets: [{ label: 'Progress', data: DATA.roadmap.map(r=>r.progress) }] },
+        options: { plugins:{ legend:{display:false} }, elements:{ point:{ radius:5 } } }
+      });
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('year').textContent = new Date().getFullYear();
+      renderLists();
+      renderCharts();
+      typeLoop();
+    });
+  </script>
+</body>
+</html>
